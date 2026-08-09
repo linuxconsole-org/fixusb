@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mount | grep /disk || exit 0
+
 if [ ! -e /disk/flatpak.loop ]
 then
   echo "Enable 20G loopback file on /disk/flatpak.loop" > /dev/tty1
