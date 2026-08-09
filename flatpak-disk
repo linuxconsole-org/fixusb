@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ ! -e /disk/flatpak.loop ]
+then
+  echo "Enable 20G loopback file on /disk/flatpak.loop" > /dev/tty1
+  fallocate -l 20G /disk/flatpak.loop
+  mke2fs -F -j /disk/flatpak.loop
+  echo "Done" > /dev/tty1
+fi

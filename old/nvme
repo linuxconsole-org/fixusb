@@ -1,0 +1,21 @@
+echo 'KERNEL!="nvme0n1p[1-9]", GOTO="media_by_label_auto_mount_end"
+# Import FS infos
+IMPORT{program}="/usr/sbin/blkid -o udev -p %N"
+IMPORT{program}="/bin/detectmount %N"
+ENV{MOUNTED}=="YES", GOTO="media_by_label_auto_mount_end"
+
+# Get a label if present, otherwise specify one
+ENV{ID_FS_LABEL}!="", ENV{dir_name}="%E{ID_FS_LABEL}"
+ENV{ID_FS_LABEL}=="", ENV{dir_name}="hd-%k"
+
+ENV{ID_FS_TYPE}=="vfat", ENV{mount_options}="-o user,umask=0000"
+
+ACTION=="add", ENV{ID_FS_TYPE}=="exfat",  RUN+="/busybox/bin/mkdir -p /media/%E{dir_name}", RUN+="/usr/sbin/mount.exfat /dev/%k /media/%E{dir_name}"
+ACTION=="add", ENV{ID_FS_TYPE}=="ext4",  RUN+="/busybox/bin/mkdir -p /media/%E{dir_name}", RUN+="/busybox/bin/mount /dev/%k /media/%E{dir_name}"
+ACTION=="add", ENV{ID_FS_TYPE}=="vfat",  RUN+="/busybox/bin/mkdir -p /media/%E{dir_name}", RUN+="/busybox/bin/mount /dev/%k /media/%E{dir_name}"
+ACTION=="add", ENV{ID_FS_TYPE}=="ntfs", RUN+="/busybox/bin/mkdir -p /media/%E{dir_name}" RUN+="/usr/bin/ntfs-3g  /dev/%k /media/%E{dir_name}" , RUN+="/busybox/bin/mount $env{mount_options} /dev/%k /media/%E{dir_name}"
+# Exit
+LABEL="media_by_label_auto_mount_end"' > /usr/lib/udev/rules.d/11-media-by-label-auto-mount-nvme.rules
+
+udevadm control --reload-rules
+udevadm trigger --action=add --type=devices

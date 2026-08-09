@@ -1,0 +1,2 @@
+# echo "ash" >> /ydfs/start/xorg
+echo "sleep 5 && lxdm" >> /ydfs/start/xorg

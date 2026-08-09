@@ -1,0 +1,1 @@
+sed -i 's/# autologin=dgod/autologin=child/' /etc/lxdm/lxdm.conf

@@ -1,0 +1,13 @@
+cp /home/linuxconsole2026/x86_64/share/xgreeters/slick-greeter.desktop /home/linuxconsole2026/x86_64/share/xgreeters/lightdm-gtk-greeter.desktop
+groupadd -g 65 lightdm       &&
+groupadd autologin      &&
+useradd  -c "Lightdm Daemon" \
+         -d /var/lib/lightdm \
+         -u 65 -g lightdm    \
+         -s /bin/false lightdm
+#--groups tty,users,audio,video,root,vboxusers,pulse,lpadmin,lp,disk,colord,autologin    
+sed -i s/systemd/elogind/  /home/linuxconsole2026/x86_64/etc/pam.d/*     
+chown lightdm /var/lib/lightdm            
+rm /home/linuxconsole2026/x86_64/share/xsessions/*          
+cp /home/linuxconsole2026/mate/share/xsessions/mate.desktop /home/linuxconsole2026/x86_64/share/xsessions/         
+ln -s /busybox/bin/rm /bin/rm
