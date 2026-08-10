@@ -11,3 +11,4 @@ chown lightdm /var/lib/lightdm
 rm /home/linuxconsole2026/x86_64/share/xsessions/*          
 cp /home/linuxconsole2026/mate/share/xsessions/mate.desktop /home/linuxconsole2026/x86_64/share/xsessions/         
 ln -s /busybox/bin/rm /bin/rm
+sed -i 's/lxdm/lightdm/g' /ydfs/start/xorg

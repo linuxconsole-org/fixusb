@@ -1,11 +1,13 @@
-for user in bzh child internet games   
+for user in enfant internet jeux emulation
 do 
   useradd --password=$(mkpasswd $user) --groups tty,users,audio,video,root,vboxusers,pulse,lpadmin,lp,disk,colord $user 
   install -d /home/$user   
   chown $user /home/$user   
+  install -d /home/$user/.config/ydfs
+  echo lang=French > /home/$user/.config/ydfs/lang
+  chown -R $user /home/$user/.config   
 done
 
-echo -e "root\nroot" | passwd     
 echo '  
 install -d /flatpak/home     
 ls /home | while read home
@@ -20,6 +22,3 @@ do
   fi
 done   
 ' >> /ydfs/enable/flapak-disk    
-
-chown root:root /busybox/bin/busybox      
-chmod +s /busybox/bin/busybox                                                                                                                                                                                                             

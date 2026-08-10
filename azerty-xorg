@@ -1,0 +1,12 @@
+#!/bin/bash
+
+install -d /etc/X11/xorg.conf.d/ 
+[ ! -e /etc/X11/xorg.conf.d/kb.conf ] && echo '
+Section "InputClass"
+	Identifier "Keyboard Layout"
+ 	MatchIsKeyboard "yes"
+ 	MatchDevicePath "/dev/input/event*"
+ 	Option "XkbLayout" "fr"
+ 	Option "XkbVariant" "latin9" # accès aux caractères spéciaux plus logique avec "Alt Gr" (ex : « » avec "Alt Gr" w x)
+EndSection
+' > /etc/X11/xorg.conf.d/kb.conf

@@ -1,0 +1,9 @@
+for user in bzh 
+do 
+  useradd --password=$(mkpasswd $user) --groups tty,users,audio,video,root,vboxusers,pulse,lpadmin,lp,disk,colord $user 
+  install -d /home/$user   
+  chown $user /home/$user   
+  install -d /home/$user/.config/ydfs
+  echo lang=Breton > /home/$user/.config/ydfs/lang
+  chown -R $user /home/$user/.config   
+done

@@ -1,25 +1,3 @@
-for user in bzh child internet games   
-do 
-  useradd --password=$(mkpasswd $user) --groups tty,users,audio,video,root,vboxusers,pulse,lpadmin,lp,disk,colord $user 
-  install -d /home/$user   
-  chown $user /home/$user   
-done
-
 echo -e "root\nroot" | passwd     
-echo '  
-install -d /flatpak/home     
-ls /home | while read home
-do
-  echo $home | grep linuxconsole && continue
-  if [ ! -e /flatpak/home/$home ] 
-  then
-      mv /home/$home /flatpak/home && ln -s /flatpak/home/$home /home/$home
-  else
-      rmdir /home/$home
-      ln -s /flatpak/home/$home /home/$home
-  fi
-done   
-' >> /ydfs/enable/flapak-disk    
-
 chown root:root /busybox/bin/busybox      
 chmod +s /busybox/bin/busybox                                                                                                                                                                                                             
