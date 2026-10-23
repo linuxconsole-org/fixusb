@@ -1,0 +1,4 @@
+#Disable internal keyboard
+id=$(xinput | grep keyboard | grep AT | cut -d'=' -f2 | tr "\t" " " | cut -d' ' -f1)
+echo "$0 : Disable $id"
+echo "xinput disable $id" >> /ydfs/fix/fix-desktop
