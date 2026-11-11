@@ -25,3 +25,7 @@ Enable persitant Flatpak on USB disk
 ##lightdm
 
 Enable Lightdm (To Fix : Cannot start session)
+
+##disable-kbd
+
+Disable main keybord on laptop
