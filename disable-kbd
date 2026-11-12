@@ -1,6 +1,25 @@
 #Disable internal keyboard
-cat >>/ydfs/fix/fix-desktop <<"EOF"
-id=$(xinput | grep keyboard | grep AT | cut -d'=' -f2 | tr "\t" " " | cut -d' ' -f1)
-echo "$0 : Disable $id"
-xinput disable $id
+
+#cat >>/ydfs/fix/fix-desktop <<"EOF"
+#id=$(xinput | grep keyboard | grep AT | cut -d'=' -f2 | tr "\t" " " | cut -d' ' -f1)
+#echo "$0 : Disable $id"
+#xinput disable $id
+#EOF
+
+install -d /etc/X11/xorg.conf.d/
+cat >>/etc/X11/xorg.conf.d/10-evdev.conf<<"EOF"
+
+#Section "InputClass"
+#        Identifier      "Built-In Touchpad"
+#        MatchIsTouchpad "on"
+#        MatchProduct    "SynPS/2 Synaptics TouchPad"
+#        Option          "Ignore" "true"
+#EndSection
+
+Section "InputClass"
+    Identifier          "Built-In Keyboard"
+    MatchIsKeyboard     "on"
+    MatchProduct        "AT Translated Set 2 keyboard"
+    Option              "Ignore" "true"
+EndSection
 EOF
