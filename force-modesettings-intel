@@ -1,19 +1,14 @@
 MODESETTING=""
 if [ ! -e /ydfs/boot/options/nomodesetting ]
 then
-  lspci | grep VGA | grep -i intel && && MODESETTING=OK
+  lspci | grep VGA | grep -i intel && MODESETTING=OK
 
   if [ "$MODESETTING" == "OK" ]
   then
     rm /home/linuxconsole2026/x86_64/lib/xorg/modules/drivers/intel_drv*
-    echo '
-Section "Device"
-    Identifier "Card0"
-    Identifier "Intel Graphics"
-    Driver "modesetting"
-EndSection
-' > /etc/X11/xorg.conf.d/nvidia.conf
   else
     cp /ydfs/modules/x86_64/lib/xorg/modules/drivers/intel_drv.* /home/linuxconsole2026/x86_64/lib/xorg/modules/drivers/
   fi
 fi
+
+echo
